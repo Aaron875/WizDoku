@@ -41,3 +41,9 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: box
+    uniqueID: 3912861691
+    locked: 0
+  - name: Border
+    uniqueID: 1540023357
+    locked: 0
