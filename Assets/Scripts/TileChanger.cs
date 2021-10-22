@@ -6,10 +6,10 @@ using UnityEngine.SceneManagement;
 
 public class TileChanger : MonoBehaviour
 {
-    SpriteRenderer
+    SpriteRenderer spriteRenderer;
     void Start()
     {
-
+        
     }
 
     void Update()
@@ -22,9 +22,17 @@ public class TileChanger : MonoBehaviour
 
     }
 
+    private void OnMouseOver()
+    {
+        Debug.Log("Mouse is over GameObject");
+        spriteRenderer = transform.GetComponent<SpriteRenderer>();
+        spriteRenderer.color = Color.yellow;
+    }
+
     void OnMouseExit()
     {
-
+        Debug.Log("Mouse has exited GameObject");
+        spriteRenderer.color = Color.grey;
     }
 
 }

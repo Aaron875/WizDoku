@@ -12,7 +12,6 @@ public class LelevStart : MonoBehaviour
     [SerializeField]
     SpriteRenderer box;
 
-
     // Start is called before the first frame update
     void Start()
     {
