@@ -2,18 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 
 public class BtnBehavior : MonoBehaviour
 {
     public string BtnName;
-
-    private Button thisButton;
-
-    private void Update()
-    {
-    }
-
 
     private void OnMouseDown()
     {
@@ -24,13 +18,18 @@ public class BtnBehavior : MonoBehaviour
                 SwitchScene("Tutorial");
                 break;
             case "BeginGame":
-                SwitchScene("Level 1A");
+                SwitchScene("Level 1B");
                 break;
             //If the quit button is clicked, close the game
             case "QuitBtn":
                 Application.Quit();
                 break;
         }
+    }
+
+    public void SetSelectedTile(GameObject hoverTile, GameObject targetTile)
+    {
+        targetTile.GetComponent<Image>().sprite = hoverTile.GetComponent<Image>().sprite;
     }
 
     public void SwitchScene(string targetScene)
