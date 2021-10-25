@@ -491,63 +491,54 @@ public class LevelManager : MonoBehaviour
                 #region Input keys 1-9
                 if (Input.GetKeyDown(KeyCode.Alpha1))
                 {
-                    tileImageComponents[i].sprite = Tile1;
                     selectedTileImage.sprite = Tile1;
                     description.text = "Shield\nEffect: Resist all damage on next turn.";
                     playerChoice = 1;
                 }
                 if (Input.GetKeyDown(KeyCode.Alpha2))
                 {
-                    tileImageComponents[i].sprite = Tile2;
                     selectedTileImage.sprite = Tile2;
                     description.text = "Ice\nEffect: Prevent an opponent or minion from attacking on next turn";
                     playerChoice = 2;
                 }
                 if (Input.GetKeyDown(KeyCode.Alpha3))
                 {
-                    tileImageComponents[i].sprite = Tile3;
                     selectedTileImage.sprite = Tile3;
                     description.text = "Sorcery\nEffect: Restore +3 health and permanently give +3 attack to all friendly minions in play.";
                     playerChoice = 3;
                 }
                 if (Input.GetKeyDown(KeyCode.Alpha4))
                 {
-                    tileImageComponents[i].sprite = Tile4;
                     selectedTileImage.sprite = Tile4;
                     description.text = "Wizardry\nEffect: Destroy all of opponent's currently summoned minions.";
                     playerChoice = 4;
                 }
                 if (Input.GetKeyDown(KeyCode.Alpha5))
                 {
-                    tileImageComponents[i].sprite = Tile5;
                     selectedTileImage.sprite = Tile5;
                     description.text = "Fire\nEffect: Prevent opponent from placing a specific tile type until they use a potion.";
                     playerChoice = 5;
                 }
                 if (Input.GetKeyDown(KeyCode.Alpha6))
                 {
-                    tileImageComponents[i].sprite = Tile6;
                     selectedTileImage.sprite = Tile6;
                     description.text = "Potion\nEffect: Restore 15 health to self, removes all negative effects.";
                     playerChoice = 6;
                 }
                 if (Input.GetKeyDown(KeyCode.Alpha7))
                 {
-                    tileImageComponents[i].sprite = Tile7;
                     selectedTileImage.sprite = Tile7;
                     description.text = "Demonology\nEffect: Summon a demon minion with 40 health and 5 attack.";
                     playerChoice = 7;
                 }
                 if (Input.GetKeyDown(KeyCode.Alpha8))
                 {
-                    tileImageComponents[i].sprite = Tile8;
                     selectedTileImage.sprite = Tile8;
                     description.text = "Sword\nEffect: Permanently raise attack by 5.";
                     playerChoice = 8;
                 }
                 if (Input.GetKeyDown(KeyCode.Alpha9))
                 {
-                    tileImageComponents[i].sprite = Tile9;
                     selectedTileImage.sprite = Tile9;
                     description.text = "Theurgy\nEffect: Summon a god minion with 30 health and 7 attack.";
                     playerChoice = 9;
@@ -589,11 +580,13 @@ public class LevelManager : MonoBehaviour
                         switch (playerChoice)
                         {
                             case 1: //Become invulnerable on next turn
+                                tileImageComponents[i].sprite = Tile1;
                                 playerOne.EntityEffect = ActiveEffect.Invulnerable;
                                 playerStatus.text = "Success! Invulnerable to damage on next turn!";
                                 break;
 
                             case 2: //Specific enemy becomes frozen on next turn
+                                tileImageComponents[i].sprite = Tile2;
                                 if (AI.NumMinions > 0) //if enemy has minions, freeze the first one possible
                                 {
                                     for (int j = 0; j < MAX_NUM_MINIONS; j++)
@@ -614,6 +607,7 @@ public class LevelManager : MonoBehaviour
                                 break;
 
                             case 3: //Buff all active minions
+                                tileImageComponents[i].sprite = Tile3;
                                 if (playerOne.NumMinions > 0)
                                 {
                                     int minionsBuffed = 0;
@@ -635,6 +629,7 @@ public class LevelManager : MonoBehaviour
                                 break;
 
                             case 4: //Kill all enemy minions (Can only be applied to enemy fighter)
+                                tileImageComponents[i].sprite = Tile4;
                                 if (AI.NumMinions > 0)
                                 {
                                     for (int j = 0; j < MAX_NUM_MINIONS; j++)
@@ -653,11 +648,13 @@ public class LevelManager : MonoBehaviour
                                 break;
 
                             case 5: //Prevent enemy from placing a specific tile type (can only be applied to enemy fighter)
+                                tileImageComponents[i].sprite = Tile5;
                                 playerStatus.text = "Correct Placement! Choose tile type to block:";
                                 burningOpponent = true;
                                 break;
 
                             case 6: //Restore 15 health to self, get rid of negative effects
+                                tileImageComponents[i].sprite = Tile6;
                                 playerOne.AddHealth(15);
                                 if (playerOne.EntityEffect == ActiveEffect.Burned || playerOne.EntityEffect == ActiveEffect.Frozen)
                                 {
@@ -668,6 +665,7 @@ public class LevelManager : MonoBehaviour
                                 break;
 
                             case 7: //Summmon demon minion if there is room in inventory
+                                tileImageComponents[i].sprite = Tile7;
                                 if (playerOne.NumMinions < 3)
                                 {
                                     for (int j = 0; j < MAX_NUM_MINIONS; j++)
@@ -689,11 +687,13 @@ public class LevelManager : MonoBehaviour
                                 break;
 
                             case 8: //Permanently raise attack
+                                tileImageComponents[i].sprite = Tile8;
                                 playerOne.AddAttack(5);
                                 playerStatus.text = "Success! You raised your attack!";
                                 break;
 
                             case 9: //Summon god minion if there is room in inventory
+                                tileImageComponents[i].sprite = Tile9;
                                 if (playerOne.NumMinions < 3)
                                 {
                                     for (int j = 0; j < MAX_NUM_MINIONS; j++)
