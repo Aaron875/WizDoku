@@ -21,7 +21,6 @@ public enum ActiveEffect
 
 public class FightManager : MonoBehaviour
 {
-    public TextMeshPro message;
 
     // Start is called before the first frame update
     void Start()
@@ -157,8 +156,19 @@ public class Fighter : CombatEntity
     public Fighter()
     {
         IsAlive = true;
-        Health = 150;
+        Health = 75;
         Attack = 5;
+        ActiveMinions[0] = null;
+        ActiveMinions[1] = null;
+        activeMinions[2] = null;
+    }
+
+    //custom constructor
+    public Fighter(int health, int attack)
+    {
+        IsAlive = true;
+        Health = health;
+        Attack = attack;
         ActiveMinions[0] = null;
         ActiveMinions[1] = null;
         activeMinions[2] = null;

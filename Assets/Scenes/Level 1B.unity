@@ -3091,7 +3091,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 3862262744099011580, guid: 04144763e1b038e4f8dbb4a5e7478b62, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 63cae9036c7574d419e9040544fac6ce, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -9132,7 +9132,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1246028519}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -40, y: -65, z: 0}
+  m_LocalPosition: {x: -40, y: -65, z: -13.5}
   m_LocalScale: {x: 7, y: 7, z: 1}
   m_Children:
   - {fileID: 1583923450}
@@ -11702,7 +11702,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 5657184732592232743, guid: d27f840434fa7d54fa80b6571ad1d77c, type: 3}
+  m_Sprite: {fileID: 21300000, guid: ce632bf3f627f8d46b6cf69b233da84b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -14615,6 +14615,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1954832290}
+  - component: {fileID: 1954832292}
   - component: {fileID: 1954832289}
   - component: {fileID: 1954832291}
   m_Layer: 0
@@ -14775,11 +14776,11 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: d812c669baa90af47bca882429389223, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 06bd1e0bac1eb684eaf3c70cfe2fa694, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 0.15
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -14861,6 +14862,18 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1954832292
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1954832288}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db571d749ed213849a81131d4686408c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2024334328
 GameObject:
   m_ObjectHideFlags: 0

@@ -128,72 +128,110 @@ public class LevelManager : MonoBehaviour
         enemyStats.text = "Health: " + AI.Health + "\n\nAttack: " + AI.Attack;
 
         turn.text = "Turn " + turnNumber;
+
     }
 
     //Game Loop
     void Update()
     {
-        turn.text = "Turn " + turnNumber;
-        //Check player input only on player's turn
-        if (playerOne.EntityTurn)
+        if (LevelFinished()) //Until more levels are entered, we only have one level so far
         {
-            if (!burningOpponent)
-            {
-                PlayerTurn();
-            }
-            else
-            {
-                BurnOpponent();
-            }
-            playerStats.text = "Health: " + playerOne.Health + "\n\nAttack: " + playerOne.Attack;
-            enemyStats.text = "Health: " + AI.Health + "\n\nAttack: " + AI.Attack;
-            AI.CheckMinions(AI.ActiveMinions, enemyMinionTileImages, enemyMinionStats, Unselected);
-
-            //update minion stats
-            for (int j = 0; j < MAX_NUM_MINIONS; j++)
-            {
-                if (playerOne.ActiveMinions[j] != null)
-                {
-                    playerMinionStats[j].text = "Health: " + playerOne.ActiveMinions[j].Health + "\nAttack: " + playerOne.ActiveMinions[j].Attack;
-                    break;
-                }
-                if (AI.ActiveMinions[j] != null)
-                {
-                    enemyMinionStats[j].text = "Health: " + AI.ActiveMinions[j].Health + "\nAttack: " + AI.ActiveMinions[j].Attack;
-                    break;
-                }
-            }
-
+            NextLevel(1);
         }
-        //Else must be enemy Turn
-        else if (AI.EntityTurn)
+        if(playerOne.IsAlive && AI.IsAlive) //basic game loop, occurs only while both the player and AI are alive
         {
-            AITurn();
-            playerOne.CheckMinions(playerOne.ActiveMinions, playerMinionTileImages, playerMinionStats, Unselected);
-
-            playerStats.text = "Health: " + playerOne.Health + "\n\nAttack: " + playerOne.Attack;
-            enemyStats.text = "Health: " + AI.Health + "\n\nAttack: " + AI.Attack;
-
-            //update minion stats
-            for (int j = 0; j < MAX_NUM_MINIONS; j++)
+            turn.text = "Turn " + turnNumber;
+            //Check player input only on player's turn
+            if (playerOne.EntityTurn)
             {
-                if (playerOne.ActiveMinions[j] != null)
+                if (!burningOpponent)
                 {
-                    playerMinionStats[j].text = "Health: " + playerOne.ActiveMinions[j].Health + "\nAttack: " + playerOne.ActiveMinions[j].Attack;
-                    break;
+                    PlayerTurn();
                 }
-                if (AI.ActiveMinions[j] != null)
+                else
                 {
-                    enemyMinionStats[j].text = "Health: " + AI.ActiveMinions[j].Health + "\nAttack: " + AI.ActiveMinions[j].Attack;
-                    break;
+                    BurnOpponent();
+                }
+                playerStats.text = "Health: " + playerOne.Health + "\n\nAttack: " + playerOne.Attack;
+                enemyStats.text = "Health: " + AI.Health + "\n\nAttack: " + AI.Attack;
+                AI.CheckMinions(AI.ActiveMinions, enemyMinionTileImages, enemyMinionStats, Unselected);
+
+                //update minion stats
+                for (int j = 0; j < MAX_NUM_MINIONS; j++)
+                {
+                    if (playerOne.ActiveMinions[j] != null)
+                    {
+                        playerMinionStats[j].text = "Health: " + playerOne.ActiveMinions[j].Health + "\nAttack: " + playerOne.ActiveMinions[j].Attack;
+                        break;
+                    }
+                    if (AI.ActiveMinions[j] != null)
+                    {
+                        enemyMinionStats[j].text = "Health: " + AI.ActiveMinions[j].Health + "\nAttack: " + AI.ActiveMinions[j].Attack;
+                        break;
+                    }
+                }
+
+            }
+            //Else must be enemy Turn
+            else if (AI.EntityTurn)
+            {
+                AITurn();
+                playerOne.CheckMinions(playerOne.ActiveMinions, playerMinionTileImages, playerMinionStats, Unselected);
+
+                playerStats.text = "Health: " + playerOne.Health + "\n\nAttack: " + playerOne.Attack;
+                enemyStats.text = "Health: " + AI.Health + "\n\nAttack: " + AI.Attack;
+
+                //update minion stats
+                for (int j = 0; j < MAX_NUM_MINIONS; j++)
+                {
+                    if (playerOne.ActiveMinions[j] != null)
+                    {
+                        playerMinionStats[j].text = "Health: " + playerOne.ActiveMinions[j].Health + "\nAttack: " + playerOne.ActiveMinions[j].Attack;
+                        break;
+                    }
+                    if (AI.ActiveMinions[j] != null)
+                    {
+                        enemyMinionStats[j].text = "Health: " + AI.ActiveMinions[j].Health + "\nAttack: " + AI.ActiveMinions[j].Attack;
+                        break;
+                    }
+                }
+
+                //If the player dies
+                if(playerOne.Health <= 0)
+                {
+                    playerOne.IsAlive = false;
+                }
+
+                //If the AI dies
+                if(AI.Health <= 0)
+                {
+                    AI.IsAlive = false;
                 }
             }
+        } 
+        else if (playerOne.IsAlive && !AI.IsAlive) //Player win
+        {
+            turn.text = "Player wins!";
+        }
+        else if(!playerOne.IsAlive && AI.IsAlive) //Enemy win
+        {
+            turn.text = "AI wins!";
+        }
+        else if(!playerOne.IsAlive && !AI.IsAlive) //Tie game
+        {
+            turn.text = "Its a draw!";
         }
     }
 
     #region Helper Methods
     //Helper Methods
     #region Small Helper Methods
+    void moveCameraHorizontally(Camera targetCam, int x)
+    {
+        targetCam.transform.position = new Vector3(targetCam.transform.position.x + x, targetCam.transform.position.y);
+    }
+
+
     //Setup initial tiles and corresponding images
     public void SetupTiles(int level)
     {
@@ -398,6 +436,15 @@ public class LevelManager : MonoBehaviour
         ResetTiles();
         SetupTiles(currentLevel);
         SetupSolution(currentLevel);
+    }
+
+    //Set the level manually
+    void NextLevel(int level)
+    {
+        currentLevel = level;
+        ResetTiles();
+        SetupTiles(level);
+        SetupSolution(level);
     }
 
     //Check to see if input was correct (returns true if input is correct)
@@ -888,6 +935,7 @@ public class LevelManager : MonoBehaviour
         }
         solutionValue = solutionVals[emptyTileIndex];
         ChangeTile(emptyTileIndex, solutionValue);
+
         if (solutionValue == AI.DisabledTileType)
         {
             enemyStatus.text = "Opponent was unable to place anything because that tile type is blocked!";
